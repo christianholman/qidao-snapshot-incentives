@@ -129,9 +129,13 @@ async function main() {
         });
       }
     }
-    const values = [...new Set(borrowIncentives.map((b) => b.chainId))].map(
+
+    let values = {};
+    [...new Set(borrowIncentives.map((b) => b.chainId))].forEach(
       (chainId) =>
-        borrowIncentives.filter((incentive) => incentive.chainId == chainId)
+        (values[chainId] = borrowIncentives.filter(
+          (incentive) => incentive.chainId == chainId
+        ))
     );
     const fileName = path.join(__dirname, `/results/${args[0]}.json`);
     const output = JSON.stringify({
