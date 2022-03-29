@@ -139,9 +139,6 @@ async function main() {
     );
     const fileName = path.join(__dirname, `/results/${args[0]}.json`);
     const output = JSON.stringify({
-      details: {
-        proposal: args[0],
-      },
       ...values,
     });
     fs.writeFileSync(fileName, output);

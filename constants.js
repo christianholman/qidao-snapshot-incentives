@@ -1,5 +1,5 @@
 const BLOCK_TIMES_MS = {
-  137: 2550,
+  137: 2250,
   250: 900,
   43114: 2100,
   1285: 20200,
@@ -123,7 +123,7 @@ const VAULTS = {
     collateralDecimals: 18,
   },
   "WETH (Fantom)": {
-    address: "0x3fd939B017b31eaADF9ae50C7fF7Fa5c0661d47C",
+    address: "0xD939c268C49c442F037E968F045ba02f499562D4",
     chainId: 250,
     minCdr: 130,
     collateralDecimals: 18,
