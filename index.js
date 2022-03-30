@@ -20,7 +20,7 @@ const buildMap = (keys, values) => {
   return map;
 };
 
-const QI_PER_POLYGON_BLOCK = BigNumber.from("65000000000000000");
+const QI_PER_POLYGON_BLOCK = BigNumber.from("650000000000000000");
 
 async function main() {
   const args = process.argv.slice(2);
