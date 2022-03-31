@@ -88,11 +88,19 @@ async function main() {
     for (let i = 0; i < choices.length; i++) {
       const choice = choices[i];
       const score = scores[i];
-      if (includedChainIds.includes(VAULTS[choice].chainId)) {
-        includedChoices.push({
-          name: choice,
-          score: score,
-        });
+      try {
+        if (includedChainIds.includes(VAULTS[choice].chainId)) {
+          includedChoices.push({
+            name: choice,
+            score: score,
+          });
+        }
+      } catch (e) {
+        if (
+          e.message == "Cannot read properties of undefined (reading 'chainId')"
+        ) {
+          console.error(`Snapshot option ${choice} not found in constants.js`);
+        }
       }
     }
 
@@ -108,10 +116,12 @@ async function main() {
       const { name, score } = choice;
       const meta = VAULTS[name];
       if (score > 0) {
-        const reward = QI_PER_POLYGON_BLOCK.mul(BLOCK_TIMES_MS[137])
-          .div(BigNumber.from(BLOCK_TIMES_MS[meta.chainId]))
+        const reward = QI_PER_POLYGON_BLOCK.mul(
+          BigNumber.from(BLOCK_TIMES_MS[meta.chainId])
+        )
           .mul(parseUnits(score.toString()))
-          .div(parseUnits(includedChoicesScoreSum.toString()));
+          .div(parseUnits(includedChoicesScoreSum.toString()))
+          .div(BLOCK_TIMES_MS[137]);
 
         const minCdr = meta.minCdr / 100 + 0.25;
         const maxCdr = meta.minCdr / 100 + 2.7;
